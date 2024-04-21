@@ -14,6 +14,7 @@ FROM deps AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_PRIVATE_STANDALONE true
 ARG DATABASE_URL=file:./production.db
 ENV DATABASE_URL $DATABASE_URL
 RUN npx prisma generate
