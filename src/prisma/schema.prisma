@@ -1,0 +1,17 @@
+generator client {
+  provider      = "prisma-client-js"
+  // output        = "./generated/client"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id   Int    @id @default(autoincrement())
+  name String @unique()
+  url  String
+  type String
+}
