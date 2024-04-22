@@ -41,7 +41,7 @@ jobs:
         run: |
           mkdir app
           cp -r public app/public
-          cp -r .next/standalone/* app/
+          cp -r .next/standalone app/
           ls -la app
           cp -r .next/static app/.next/static
           mkdir -p app/src
