@@ -43,13 +43,12 @@ jobs:
       - name: Prepare app
         run: |
           mkdir app
-          cp -r .next/standalone app/
-          mkdir -p app/.next/static
-          mv .next/static app/.next/static
-          mkdir -p app/public
-          cp -r public app/public
-          mkdir -p app/src/prisma
-          cp -r src/prisma app/src/prisma
+          cp -R .next/standalone/* app/
+          mkdir -p app/.next
+          cp .next/static app/.next/
+          cp public app/public
+          mkdir -p app/src
+          cp -r src/prisma app/src/
 
       - name: Package
         run: tar -zcvf side-panel.tar.gz app
