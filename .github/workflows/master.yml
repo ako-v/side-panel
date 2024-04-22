@@ -39,12 +39,15 @@ jobs:
           npx prisma generate
           npx prisma migrate deploy
           npm run build
-          cd src/prisma
-          ls
-          cd ../..
+
+
           mkdir app
           cp -r .next/standalone app/
+          mkdir app/.next/static
           cp -r .next/static app/.next/static
+          mkdir app/public
+          cp -r public app/public
+          mkdir app/src/prisma
           cp -r src/prisma app/src/prisma
 
       - name: Package
