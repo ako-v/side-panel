@@ -1,8 +1,9 @@
 "use client";
+
 import { Box, BoxProps, Button, Input, Select, useToast } from "@chakra-ui/react";
 import { Subscription } from "@prisma/client";
 import { useMemo, useState } from "react";
-import QRCodeModal from "./QRCodeModal";
+import QRCodeModal from "../QRCodeModal";
 
 export type InputRowProps = Omit<BoxProps, "onChange"> & {
   data: Subscription;
@@ -86,10 +87,13 @@ const SubscriptionItem: React.FC<InputRowProps> = ({ data, onUpdate, onCreate, o
     setIsLoading(false);
   };
 
-  const QRCodeUrl = useMemo(
-    () => (fields?.id ? window.location.origin + `/api/subs/${fields.name}` : ""),
-    [fields.id, fields.name]
-  );
+  const QRCodeUrl = useMemo(() => {
+    if (window !== undefined && fields?.id && fields?.name) {
+      return window.location.origin + `/api/subs/${fields.name}`;
+    } else {
+      return "";
+    }
+  }, [fields.id, fields.name]);
 
   return (
     <Box display="flex" gap={3} {...rest}>
