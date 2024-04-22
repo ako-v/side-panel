@@ -37,7 +37,7 @@ jobs:
           NEXT_TELEMETRY_DISABLED: 1
         run: |
           npx prisma generate
-          RUN npx prisma migrate deploy
+          npx prisma migrate deploy
           npm run build
           cd src/prisma
           ls
