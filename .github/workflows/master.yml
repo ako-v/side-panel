@@ -32,15 +32,29 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
-
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: nextjs-build
-          path: ./.next/
-
-      - name: Release
-        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATABASE_URL: file:./production.db
+          NEXT_TELEMETRY_DISABLED: 1
+        run: |
+          npx prisma generate
+          RUN npx prisma migrate deploy
+          npm run build
+          cd src/prisma
+          ls
+          cd ../..
+          mkdir app
+          cp -r .next/standalone app/
+          cp -r .next/static app/.next/static
+          cp -r src/prisma app/src/prisma
+
+      - name: Package
+        run: tar -zcvf side-panel.tar.gz app
+
+      - name: Upload files to GH release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          file: side-panel.tar.gz
+          asset_name: side-panel.tar.gz
+          prerelease: true
