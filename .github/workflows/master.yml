@@ -42,7 +42,7 @@ jobs:
           mkdir app
           cp -r public app/public
           cp -R .next/standalone/* app/
-          cp -r .next/static app/.next/
+          cp -r .next/static app/.next/static
           mkdir -p app/src
           cp -r src/prisma app/src/
 
