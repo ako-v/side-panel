@@ -43,10 +43,10 @@ jobs:
       - name: Prepare app
         run: |
           mkdir app
+          cp -r public app/public
           cp -R .next/standalone/* app/
           mkdir -p app/.next
-          cp .next/static app/.next/
-          cp public app/public
+          cp -r .next/static app/.next/
           mkdir -p app/src
           cp -r src/prisma app/src/
 
