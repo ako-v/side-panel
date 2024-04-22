@@ -88,7 +88,7 @@ const SubscriptionItem: React.FC<InputRowProps> = ({ data, onUpdate, onCreate, o
   };
 
   const QRCodeUrl = useMemo(() => {
-    if (window !== undefined && fields?.id && fields?.name) {
+    if (typeof window !== "undefined" && fields?.id && fields?.name) {
       return window.location.origin + `/api/subs/${fields.name}`;
     } else {
       return "";
